@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <button id="btn">button</button>
+  <span>몇번 눌렀나? 0번</span>
+</body>
+<script>
+  const button = document.getElementById("btn")
+  let cnt = 0;
+  const handleClick = () => {
+    cnt++;
+    document.querySelector("span").innerText = `몇번 눌렀나? ${cnt}번`;
+  }
+  button.addEventListener("click", handleClick)
+</script>
+
+</html>
