@@ -16,5 +16,11 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "srcd/theme.ts", "srcd/styled.d.ts", "srcd/styled.d.ts"]
+  "include": [
+    "src",
+    "srcd/theme.ts",
+    "srcd/styled.d.ts",
+    "srcd/styled.d.ts",
+    "styled.d.ts"
+  ]
 }
