@@ -60,6 +60,9 @@ body{
   font-family : "Pretendard",  sans-serif ;
   color : ${(props) => props.theme.textColor};
 	background-color:${(props) => props.theme.bgColor};
+
+	margin-top : 50px;
+
 }
 `;
 

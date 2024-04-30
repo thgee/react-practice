@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useParams,
+} from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import Price from "./Price";
 import Chart from "./Chart";
@@ -10,12 +18,17 @@ const Container = styled.div`
   max-width: 500px;
   min-width: 400px;
 `;
-const Header = styled.header``;
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+`;
 const Title = styled.h1`
   font-size: 2.5rem;
-  margin-bottom: 30px;
   font-weight: 700;
   text-align: center;
+  margin-left: 10px;
 `;
 
 const LoadingPage = styled.div<{ isMount: boolean }>`
@@ -37,6 +50,12 @@ const LoadingPage = styled.div<{ isMount: boolean }>`
     transition: inherit;
     font-size: ${({ isMount }) => (isMount ? "1.8rem" : "1rem")};
   }
+`;
+
+const Img = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
 `;
 
 const SectionA = styled.section``;
@@ -66,6 +85,32 @@ const CoinDesc = styled.p`
   font-size: 1.1rem;
 `;
 
+const Tabs = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  padding: 30px;
+`;
+
+const Tab = styled.div<{ $isClick: boolean }>`
+  text-align: center;
+  flex-grow: 1;
+  border-radius: 10px;
+  background-color: ${(p) =>
+    !p.$isClick ? p.theme.textColor : p.theme.btnColor};
+  color: ${(p) => (!p.$isClick ? p.theme.btnColor : p.theme.textColor)};
+  margin: 4px;
+
+  a {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
 interface ICoinInfo {
   id: string;
   name: string;
@@ -85,6 +130,8 @@ function Coin() {
   const [isMount, setIsMount] = useState(false); // 마운트 시 애니메이션 추가를 위한 변수
   const location = useLocation();
   const preInfo = location?.state; // 코인정보 호출 전에 미리 보여줄 정보들
+  const matchUrlPrice = useMatch("/:coinId/price");
+  const matchUrlChart = useMatch("/:coinId/chart");
 
   useEffect(() => {
     // 코인 정보, 가격 받아오기
@@ -136,6 +183,7 @@ function Coin() {
   return (
     <Container>
       <Header>
+        <Img src={coinInfo?.logo} />
         <Title>{coinInfo?.name}</Title>
       </Header>
 
@@ -171,13 +219,15 @@ function Coin() {
           </OverviewWrap>
         </OverviewBox>
       </SectionA>
-
-      <Link to={"chart"}>chart</Link>
-      <Link to={"price"}>price</Link>
-      <Routes>
-        <Route path="chart" element={<Chart />} />
-        <Route path="price" element={<Price />} />
-      </Routes>
+      <Tabs>
+        <Tab $isClick={matchUrlChart !== null}>
+          <Link to={"chart"}>chart</Link>
+        </Tab>
+        <Tab $isClick={matchUrlPrice !== null}>
+          <Link to={"price"}>price</Link>
+        </Tab>
+      </Tabs>
+      <Outlet />
     </Container>
   );
 }

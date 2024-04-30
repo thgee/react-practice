@@ -1,11 +1,12 @@
 import GlobalStyle from "./theme/GlobalStyle";
-import Router from "./routes/Router";
+import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Router />
+      <Header />
+      <Outlet />
     </>
   );
 }
