@@ -1,6 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { apiGetCoinList } from "../api";
 
 const Container = styled.div`
   padding: 30px;
@@ -57,7 +59,7 @@ const Img = styled.img<{ $color: string; $reverseColor: string }>`
   margin-right: 30px;
 `;
 
-interface coinDataType {
+interface IcoinData {
   id: string;
   name: string;
   symbol: string;
@@ -66,29 +68,12 @@ interface coinDataType {
 }
 
 const Coins = () => {
-  const [coinData, setCoinData] = useState<coinDataType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    (async () => {
-      setCoinData(
-        (await (await fetch("https://api.coinpaprika.com/v1/tickers")).json())
-          .slice(0, 50)
-          .map(
-            ({
-              id,
-              name,
-              symbol,
-              rank,
-              quotes: {
-                USD: { price },
-              },
-            }: any): coinDataType => ({ id, name, symbol, rank, price })
-          )
-      );
+  const { isLoading, data: coinsData } = useQuery<IcoinData[]>({
+    queryKey: ["coinDatas"],
+    queryFn: apiGetCoinList,
+    // refetchInterval: 1000,
+  });
 
-      setLoading(false);
-    })();
-  }, []);
   const navigate = useNavigate();
   const getRandomColor = (flag: boolean) => {
     let [r, g, b] = [
@@ -105,11 +90,11 @@ const Coins = () => {
       <Header>
         <Title>코인 페이지</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loading>로딩중...</Loading>
       ) : (
         <CoinList>
-          {coinData.map((it) => {
+          {coinsData?.map((it) => {
             const color = getRandomColor(true);
             const reverseColor = getRandomColor(false);
             return (

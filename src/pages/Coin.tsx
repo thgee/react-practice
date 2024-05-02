@@ -6,11 +6,14 @@ import {
   Routes,
   useLocation,
   useMatch,
+  useNavigate,
   useParams,
 } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import Price from "./Price";
-import Chart from "./Chart";
+import Price from "./Coin/Price";
+import Chart from "./Coin/Chart";
+import { useQuery } from "@tanstack/react-query";
+import { apiGetCoinInfo, apiGetCoinPrice } from "../api";
 
 const Container = styled.div`
   padding: 50px 0px;
@@ -18,11 +21,12 @@ const Container = styled.div`
   max-width: 500px;
   min-width: 400px;
 `;
-const Header = styled.header`
+const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 30px;
+  position: relative;
 `;
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -111,6 +115,17 @@ const Tab = styled.div<{ $isClick: boolean }>`
   }
 `;
 
+const HomeBtn = styled.button`
+  position: absolute;
+  left: 0;
+  color: white;
+  background: none;
+  font-size: 3rem;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+`;
+
 interface ICoinInfo {
   id: string;
   name: string;
@@ -122,56 +137,56 @@ interface ICoinInfo {
   started_at: Date;
   links: string[];
 }
+
+interface IPreInfo {
+  name: string;
+  symbol: string;
+}
 function Coin() {
+  const navigate = useNavigate();
   const { coinId } = useParams();
-  const [coinInfo, setCoinInfo] = useState<ICoinInfo>(); // 코인 상세 정보
-  const [coinPrice, setCoinPrice] = useState<number>(); // 코인 가격 정보
-  const [loading, setLoading] = useState(true);
   const [isMount, setIsMount] = useState(false); // 마운트 시 애니메이션 추가를 위한 변수
-  const location = useLocation();
-  const preInfo = location?.state; // 코인정보 호출 전에 미리 보여줄 정보들
+  const preInfo: IPreInfo = useLocation().state; // 코인정보 호출 전에 미리 보여줄 정보들
   const matchUrlPrice = useMatch("/:coinId/price");
   const matchUrlChart = useMatch("/:coinId/chart");
 
-  useEffect(() => {
-    // 코인 정보, 가격 받아오기
-    (async () => {
-      try {
-        setCoinInfo(
-          await (
-            await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-          ).json()
-        );
-        setCoinPrice(
-          (
-            await (
-              await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-            ).json()
-          ).quotes?.USD.price
-        );
-      } catch (err: any) {
-        console.log(err);
-      }
-      // 로딩이 완료되면 isMount를 변경하여 애니메이션 적용
-      setTimeout(() => {
-        setIsMount(false);
-      }, 1000);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-    })();
+  const { isLoading: isLoadingInfo, data: coinInfo } = useQuery({
+    queryKey: [coinId, "info"],
+    queryFn: () => apiGetCoinInfo(coinId as string),
+  });
 
-    // 마운트된 후 1초 뒤에 isMount 상태 변경하여 애니메이션 적용
-    const timer = setTimeout(() => {
-      setIsMount(true);
-    }, 100);
+  const { isLoading: isLoadingPrice, data: coinPrice } = useQuery({
+    queryKey: [coinId, "price"],
+    queryFn: () => apiGetCoinPrice(coinId as string),
+  });
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let timer1: ReturnType<typeof setTimeout>;
+    let timer2: ReturnType<typeof setTimeout>;
+    setIsMount(true);
+
+    // 마운트 끝나면
+    if (!(isLoadingInfo || isLoadingPrice)) {
+      timer1 = setTimeout(() => {
+        setIsMount(false);
+      }, 1500);
+
+      timer2 = setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
 
     // 컴포넌트가 언마운트되면 타이머를 정리
-    return () => clearTimeout(timer);
-  }, []); // useEffect를 빈 배열로 전달하여 컴포넌트가 처음 마운트될 때만 실행되도록 함
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [isLoadingPrice, isLoadingInfo]);
 
   // 로딩중
-  if (loading)
+  if (isLoading)
     return (
       <LoadingPage isMount={isMount}>
         <h1>{preInfo?.name || "로딩중"}</h1>
@@ -183,6 +198,13 @@ function Coin() {
   return (
     <Container>
       <Header>
+        <HomeBtn
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          ←
+        </HomeBtn>
         <Img src={coinInfo?.logo} />
         <Title>{coinInfo?.name}</Title>
       </Header>
@@ -219,6 +241,8 @@ function Coin() {
           </OverviewWrap>
         </OverviewBox>
       </SectionA>
+
+      {/* 차트, 가격  탭 버튼 */}
       <Tabs>
         <Tab $isClick={matchUrlChart !== null}>
           <Link to={"chart"}>chart</Link>
@@ -227,7 +251,9 @@ function Coin() {
           <Link to={"price"}>price</Link>
         </Tab>
       </Tabs>
-      <Outlet />
+
+      {/* 차트, 가격 컴포넌트 */}
+      <Outlet context={{ priceData: coinPrice.quotes.USD }} />
     </Container>
   );
 }
