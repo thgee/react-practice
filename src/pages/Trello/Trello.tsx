@@ -2,8 +2,9 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { todoState } from "../../atoms";
-import { Boards, Wrapper } from "./styles";
+import { Boards, TrashCan, Wrapper } from "./styles";
 import { Board } from "../../components/Boards/Board";
+import { FaTrashAlt } from "react-icons/fa";
 
 export const Trello = () => {
   const [todos, setTodos] = useRecoilState(todoState);
@@ -52,6 +53,7 @@ export const Trello = () => {
             />
           ))}
         </Boards>
+        <TrashCan />
       </Wrapper>
     </DragDropContext>
   );
