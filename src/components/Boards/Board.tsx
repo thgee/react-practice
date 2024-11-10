@@ -8,6 +8,7 @@ import {
   AddCardStyle,
   Area,
   CancelBtn,
+  OkBtn,
   Title,
   Wrapper,
 } from "./styles";
@@ -75,8 +76,11 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
               <AddCardStyle>
                 <form onSubmit={handleSubmit(onValid)}>
                   <input placeholder={`할 일 추가`} {...register("newTodo")} />
+                  <div>
+                    <OkBtn onClick={handleSubmit(onValid)} />
+                    <CancelBtn onClick={cancelAdd} />
+                  </div>
                 </form>
-                <CancelBtn onClick={cancelAdd} />
               </AddCardStyle>
             ) : (
               <AddBtn onClick={addCard} />

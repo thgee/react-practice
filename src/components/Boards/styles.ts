@@ -3,6 +3,7 @@ import { darkTheme } from "../../theme";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { CardStyle } from "../Card/styles";
+import { FaCheck } from "react-icons/fa";
 
 export const Title = styled.h1`
   text-align: center;
@@ -48,9 +49,15 @@ export const AddBtn = styled(IoIosAddCircleOutline)`
 `;
 
 export const AddCardStyle = styled(CardStyle)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > div {
+      display: flex;
+      gap: 6px;
+    }
+  }
 
   input {
     outline: none;
@@ -59,6 +66,11 @@ export const AddCardStyle = styled(CardStyle)`
   }
 `;
 
+export const OkBtn = styled(FaCheck)`
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #00bb00;
+`;
 export const CancelBtn = styled(MdCancel)`
   cursor: pointer;
   font-size: 1.2rem;
