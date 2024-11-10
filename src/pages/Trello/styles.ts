@@ -53,7 +53,6 @@ export const AddBoardBtn = styled(IoIosAdd)`
 
 export const AddBoardLabel = styled.span`
   font-size: 1.2rem;
-  font-weight: 700;
 `;
 
 export const AddBoardForm = styled.form`
@@ -67,6 +66,11 @@ export const AddBoardForm = styled.form`
     border: none;
     padding: 10px;
     border-radius: 8px;
+    outline: none;
+
+    :focus {
+      outline: 2px solid #3366ff;
+    }
   }
 
   .btn-wrap {

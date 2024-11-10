@@ -131,3 +131,16 @@ table {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: "CookieRun-bold";
+  src: url("./fonts/CookieRunBold.otf") format("woff");
+}
+@font-face {
+  font-family: "CookieRun-regular";
+  src: url("./fonts/CookieRunRegular.otf") format("woff");
+}
+body,
+input {
+  font-family: "CookieRun-regular";
+}

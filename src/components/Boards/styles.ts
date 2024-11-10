@@ -8,8 +8,8 @@ import { FaCheck } from "react-icons/fa";
 export const Title = styled.h1`
   text-align: center;
   font-size: 1.1rem;
-  font-weight: 700;
   margin: 20px 0;
+  font-family: "CookieRun-bold";
 `;
 
 export const Wrapper = styled.ul`
