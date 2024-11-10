@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { FaTrashAlt } from "react-icons/fa";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -9,16 +8,7 @@ export const Wrapper = styled.div`
 
   padding: 60px 0;
 `;
-export const TrashCan = styled(FaTrashAlt)`
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 3.3rem;
-  color: #fff;
-  padding: 6px;
-  border-radius: 100px;
-  border: 2.4px solid #fff;
-`;
+
 export const Boards = styled.div`
   display: flex;
   width: 90%;
