@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   background-color: #000;
   background: linear-gradient(135deg, #d9afd9, #97d9e1);
-
+  min-height: 100vh;
   padding: 60px 0;
 `;
 
