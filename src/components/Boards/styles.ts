@@ -14,8 +14,7 @@ export const Title = styled.h1`
 
 export const Wrapper = styled.ul`
   background-color: ${darkTheme.boardColor};
-  width: 300px;
-  padding: 0px 0px;
+  width: 100%;
   border-radius: 10px;
   min-height: 300px;
   height: fit-content;

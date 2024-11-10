@@ -1,13 +1,28 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { todoState } from "../../atoms";
-import { Boards, Wrapper } from "./styles";
+import {
+  AddBoardBtn,
+  AddBoardForm,
+  AddBoardLabel,
+  BoardPlaceholder,
+  Boards,
+  Wrapper,
+} from "./styles";
 import { Board } from "../../components/Boards/Board";
 import { TrashCan } from "../../components/TrashCan/TrashCan";
+import { CancelBtn, OkBtn } from "../../components/Boards/styles";
+import { useForm } from "react-hook-form";
+
+interface IBoardForm {
+  boardName: string;
+}
 
 export const Trello = () => {
   const [todos, setTodos] = useRecoilState(todoState);
+  const [addBoardMode, setAddBoardMode] = useState(false);
+  const { setValue, register, handleSubmit } = useForm<IBoardForm>();
 
   useEffect(() => {
     const boardsData = localStorage.getItem("boardsData");
@@ -60,6 +75,16 @@ export const Trello = () => {
     }
   };
 
+  const onValid = ({ boardName }: IBoardForm) => {};
+
+  const cancelAddBoard = () => {
+    setValue("boardName", "");
+    setAddBoardMode(false);
+  };
+
+  const addBoard = () => {
+    setAddBoardMode(true);
+  };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
@@ -71,6 +96,26 @@ export const Trello = () => {
               todos={todos[boardName]}
             />
           ))}
+
+          {addBoardMode ? (
+            <BoardPlaceholder isAdding={true}>
+              <AddBoardForm onSubmit={handleSubmit(onValid)}>
+                <AddBoardLabel>보드 추가</AddBoardLabel>
+                <input
+                  placeholder={`보드 이름을 입력하세요`}
+                  {...register("boardName")}
+                />
+                <div className="btn-wrap">
+                  <OkBtn onClick={handleSubmit(onValid)} />
+                  <CancelBtn onClick={cancelAddBoard} />
+                </div>
+              </AddBoardForm>
+            </BoardPlaceholder>
+          ) : (
+            <BoardPlaceholder onClick={addBoard}>
+              <AddBoardBtn />
+            </BoardPlaceholder>
+          )}
         </Boards>
         <TrashCan />
       </Wrapper>
