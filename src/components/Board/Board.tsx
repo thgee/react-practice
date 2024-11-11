@@ -13,6 +13,7 @@ import {
   Wrapper,
 } from "./styles";
 import { useState } from "react";
+import { IoCloseSharp } from "react-icons/io5";
 
 interface IForm {
   newTodo: string;
@@ -38,6 +39,18 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
     setFocus("newTodo");
   };
 
+  const deleteBoard = () => {
+    // atom에서 해당 보드 삭제
+    setTodo((boards) => {
+      const copyBoards = { ...boards };
+      delete copyBoards[boardName];
+      // 로컬스토리지 업데이트
+      localStorage.setItem("boardsData", JSON.stringify(copyBoards));
+
+      return copyBoards;
+    });
+  };
+
   const onValid = ({ newTodo }: IForm) => {
     const _newTodo = {
       id: Date.now(),
@@ -60,6 +73,7 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
     <Droppable droppableId={boardName} key={boardName}>
       {(provided, snapshot) => (
         <Wrapper>
+          <IoCloseSharp onClick={deleteBoard} />
           <Title>{boardName}</Title>
 
           <Area
