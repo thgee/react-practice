@@ -12,7 +12,7 @@ import {
   Title,
   Wrapper,
 } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface IForm {
   newTodo: string;
@@ -26,15 +26,16 @@ interface IBoardProps {
 export const Board = ({ todos, boardName }: IBoardProps) => {
   const setTodo = useSetRecoilState(todoState);
   const [addMode, setAddMode] = useState(false);
-  const { setValue, register, handleSubmit } = useForm<IForm>();
+  const { setValue, register, handleSubmit, setFocus } = useForm<IForm>();
 
   const cancelAdd = () => {
     setValue("newTodo", "");
     setAddMode(false);
   };
 
-  const addCard = () => {
-    setAddMode(true);
+  const addCard = async () => {
+    await setAddMode(true);
+    setFocus("newTodo");
   };
 
   const onValid = ({ newTodo }: IForm) => {
@@ -75,7 +76,7 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
             {addMode ? (
               <AddCardStyle>
                 <form onSubmit={handleSubmit(onValid)}>
-                  <input placeholder={`할 일 추가`} {...register("newTodo")} />
+                  <input {...register("newTodo")} placeholder={`할 일 추가`} />
                   <div>
                     <OkBtn onClick={handleSubmit(onValid)} />
                     <CancelBtn onClick={cancelAdd} />
