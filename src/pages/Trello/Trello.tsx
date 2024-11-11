@@ -10,9 +10,9 @@ import {
   Boards,
   Wrapper,
 } from "./styles";
-import { Board } from "../../components/Boards/Board";
+import { Board } from "../../components/Board/Board";
 import { TrashCan } from "../../components/TrashCan/TrashCan";
-import { CancelBtn, OkBtn } from "../../components/Boards/styles";
+import { CancelBtn, OkBtn } from "../../components/Board/styles";
 import { useForm } from "react-hook-form";
 
 interface IBoardForm {
@@ -75,7 +75,16 @@ export const Trello = () => {
     }
   };
 
-  const onValid = ({ boardName }: IBoardForm) => {};
+  const onValid = ({ boardName }: IBoardForm) => {
+    // atom에 보드 추가하기
+    setTodos((boards) => {
+      const addedboards = { ...boards, [boardName]: [] };
+      // 로컬스토리지에도 추가
+      localStorage.setItem("boardsData", JSON.stringify(addedboards));
+      return addedboards;
+    });
+    cancelAddBoard();
+  };
 
   const cancelAddBoard = () => {
     setValue("boardName", "");

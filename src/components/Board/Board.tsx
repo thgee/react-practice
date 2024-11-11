@@ -12,7 +12,7 @@ import {
   Title,
   Wrapper,
 } from "./styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface IForm {
   newTodo: string;
