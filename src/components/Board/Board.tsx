@@ -1,7 +1,7 @@
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Card } from "../Card/Card";
 import { useForm } from "react-hook-form";
-import { ITodo, todoState } from "../../atoms";
+import { todoState } from "../../atoms";
 import { useSetRecoilState } from "recoil";
 import {
   AddBtn,
@@ -14,17 +14,12 @@ import {
 } from "./styles";
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { IBoardProps, IForm } from "./types";
+import { RxDragHandleDots2 } from "react-icons/rx";
 
-interface IForm {
-  newTodo: string;
-}
-
-interface IBoardProps {
-  todos: ITodo[];
-  boardName: string;
-}
-
-export const Board = ({ todos, boardName }: IBoardProps) => {
+export const Board = ({
+  boardInfo: { boardId, boardName, todos },
+}: IBoardProps) => {
   const setTodo = useSetRecoilState(todoState);
   const [addMode, setAddMode] = useState(false);
   const { setValue, register, handleSubmit, setFocus } = useForm<IForm>();
@@ -42,8 +37,8 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
   const deleteBoard = () => {
     // atom에서 해당 보드 삭제
     setTodo((boards) => {
-      const copyBoards = { ...boards };
-      delete copyBoards[boardName];
+      const copyBoards = [...boards];
+
       // 로컬스토리지 업데이트
       localStorage.setItem("boardsData", JSON.stringify(copyBoards));
 
@@ -58,22 +53,36 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
     };
 
     setTodo((allBoards) => {
-      const addedBoardsData = {
-        ...allBoards,
-        [boardName]: [...allBoards[boardName], _newTodo],
+      // 투두가 추가되는 보드의 인덱스 boardIdx 찾기
+      const boardIdx = allBoards.findIndex(
+        (board) => board.boardId === boardId
+      );
+      const targetBoard = allBoards[boardIdx];
+      // targetBoard 업데이트
+      const updatedTargetBoard = {
+        ...targetBoard,
+        todos: [...todos, _newTodo],
       };
-      localStorage.setItem("boardsData", JSON.stringify(addedBoardsData));
-      return addedBoardsData;
+      // allBoards 업데이트
+      const updatedAllBoards = [...allBoards];
+      updatedAllBoards.splice(boardIdx, 1, updatedTargetBoard);
+      localStorage.setItem("boardsData", JSON.stringify(updatedAllBoards));
+      return updatedAllBoards;
     });
 
     setValue("newTodo", "");
     setAddMode(false);
   };
+
   return (
+    // <Draggable draggableId={boardName} key={boardName} index={boardName}>
+    //   {(draggableProvided, draggableSnapshot) => (
     <Droppable droppableId={boardName} key={boardName}>
       {(provided, snapshot) => (
         <Wrapper>
           <IoCloseSharp onClick={deleteBoard} />
+
+          <RxDragHandleDots2 />
           <Title>{boardName}</Title>
 
           <Area
@@ -104,5 +113,7 @@ export const Board = ({ todos, boardName }: IBoardProps) => {
         </Wrapper>
       )}
     </Droppable>
+    // )}
+    // </Draggable>
   );
 };
