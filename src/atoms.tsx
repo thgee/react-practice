@@ -5,15 +5,17 @@ export interface ITodo {
   text: string;
 }
 
-interface ITodoState {
-  [key: string]: ITodo[];
+export interface IBoard {
+  boardId: number;
+  boardName: string;
+  todos: ITodo[];
 }
 
-export const todoState = atom<ITodoState>({
+export const todoState = atom<IBoard[]>({
   key: "todo",
-  default: {
-    할일: [],
-    진행중: [],
-    완료: [],
-  },
+  default: [
+    { boardId: 0, boardName: "할일", todos: [] },
+    { boardId: 1, boardName: "진행중", todos: [] },
+    { boardId: 2, boardName: "완료", todos: [] },
+  ],
 });
