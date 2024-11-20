@@ -33,17 +33,24 @@ export const Trello = () => {
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
     // 쓰레기통으로 이동
-    // if (destination.droppableId === "trashCan") {
-    //   setBoards((allBoards) => {
-    //     const board = [...allBoards[source.index]];
-    //     board.splice(source.index, 1);
-    //     const deletedBoardData = { ...allBoards, [source.droppableId]: board };
-    //     localStorage.setItem("boardsData", JSON.stringify(deletedBoardData));
-    //     return deletedBoardData;
-    //   });
-    //   return;
-    // } else
-    {
+    if (destination.droppableId === "trashCan") {
+      setBoards((allBoards) => {
+        const copyAllBoards = [...allBoards];
+
+        const targetBoardIdx = copyAllBoards.findIndex(
+          (board) => String(board.boardId) === source.droppableId
+        );
+
+        const targetBoard = { ...copyAllBoards[targetBoardIdx] };
+        const targetBoardTodos = [...targetBoard.todos];
+        targetBoardTodos.splice(source.index, 1);
+        targetBoard.todos = targetBoardTodos;
+        copyAllBoards[targetBoardIdx] = targetBoard;
+        localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
+        return copyAllBoards;
+      });
+      return;
+    } else {
       setBoards((allBoards) => {
         // 보드 내 이동
         if (source.droppableId === destination.droppableId) {
