@@ -77,7 +77,7 @@ export const Board = ({
   return (
     // <Draggable draggableId={boardName} key={boardName} index={boardName}>
     //   {(draggableProvided, draggableSnapshot) => (
-    <Droppable droppableId={boardName} key={boardName}>
+    <Droppable droppableId={boardId.toString()} key={boardId}>
       {(provided, snapshot) => (
         <Wrapper>
           <IoCloseSharp onClick={deleteBoard} />
