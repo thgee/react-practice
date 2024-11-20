@@ -19,3 +19,8 @@ export const todoState = atom<IBoard[]>({
     { boardId: 2, boardName: "완료", todos: [] },
   ],
 });
+
+export const lastBoardIdState = atom<number>({
+  key: "lastBoardId",
+  default: 2,
+});

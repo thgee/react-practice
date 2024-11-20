@@ -1,7 +1,7 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
-import { todoState } from "../../atoms";
+import { IBoard, lastBoardIdState, todoState } from "../../atoms";
 import {
   AddBoardBtn,
   AddBoardForm,
@@ -21,6 +21,7 @@ interface IBoardForm {
 
 export const Trello = () => {
   const [boards, setBoards] = useRecoilState(todoState);
+  const [lastBoardId, setLastBoardId] = useRecoilState(lastBoardIdState);
   const [addBoardMode, setAddBoardMode] = useState(false);
   const { setValue, register, handleSubmit } = useForm<IBoardForm>();
 
@@ -28,6 +29,10 @@ export const Trello = () => {
     const boardsData = localStorage.getItem("boardsData");
     if (!boardsData) return;
     setBoards(JSON.parse(boardsData));
+
+    const lastBoardIdData = localStorage.getItem("lastBoardIdData");
+    if (!lastBoardIdData) return;
+    setLastBoardId(Number(lastBoardIdData));
   }, []);
 
   const onDragEnd = ({ destination, source }: DropResult) => {
@@ -113,11 +118,20 @@ export const Trello = () => {
 
   const onValid = ({ boardName }: IBoardForm) => {
     // atom에 보드 추가하기
-    setBoards((boards) => {
-      const addedboards = { ...boards, [boardName]: [] };
+    setBoards((allBoards) => {
+      const newBoard: IBoard = {
+        boardId: lastBoardId + 1,
+        boardName: boardName,
+        todos: [],
+      };
+      const addedboards = [...allBoards, newBoard];
       // 로컬스토리지에도 추가
       localStorage.setItem("boardsData", JSON.stringify(addedboards));
       return addedboards;
+    });
+    setLastBoardId((lastBoardId) => {
+      localStorage.setItem("lastBoardIdData", String(lastBoardId + 1));
+      return lastBoardId + 1;
     });
     cancelAddBoard();
   };
