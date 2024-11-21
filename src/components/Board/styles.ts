@@ -75,3 +75,14 @@ export const CancelBtn = styled(MdCancel)`
   font-size: 1.2rem;
   color: #333;
 `;
+
+export const BoardHandle = styled("div")`
+  > * {
+    cursor: pointer;
+  }
+  width: 30px;
+  color: #999;
+  position: relative;
+  left: 2px;
+  top: 6px;
+`;

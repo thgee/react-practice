@@ -7,6 +7,7 @@ import {
   AddBtn,
   AddCardStyle,
   Area,
+  BoardHandle,
   CancelBtn,
   OkBtn,
   Title,
@@ -79,15 +80,17 @@ export const Board = ({
       {(draggableProvided, draggableSnapshot) => (
         <div
           ref={draggableProvided.innerRef}
-          {...draggableProvided.dragHandleProps}
           {...draggableProvided.draggableProps}
         >
           <Droppable droppableId={boardId.toString()} key={boardId} type="todo">
             {(provided, snapshot) => (
               <Wrapper>
-                <IoCloseSharp onClick={deleteBoard} />
+                {/* <IoCloseSharp onClick={deleteBoard} /> */}
 
-                <RxDragHandleDots2 />
+                <BoardHandle {...draggableProvided.dragHandleProps}>
+                  <RxDragHandleDots2 size={26} />
+                </BoardHandle>
+
                 <Title>{boardName}</Title>
 
                 <Area
