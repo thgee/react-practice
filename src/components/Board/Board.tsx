@@ -82,10 +82,10 @@ export const Board = ({
       key={`board-${boardId}`}
       index={idx}
     >
-      {(draggableProvided, draggableSnapshot) => (
+      {(boardDraggableProvided, boardDraggableSnapshot) => (
         <div
-          ref={draggableProvided.innerRef}
-          {...draggableProvided.draggableProps}
+          ref={boardDraggableProvided.innerRef}
+          {...boardDraggableProvided.draggableProps}
         >
           <Droppable
             droppableId={`todo-${boardId}`}
@@ -93,10 +93,10 @@ export const Board = ({
             type="todo"
           >
             {(provided, snapshot) => (
-              <Wrapper>
+              <Wrapper isDragging={boardDraggableSnapshot.isDragging}>
                 {/* <IoCloseSharp onClick={deleteBoard} /> */}
 
-                <BoardHandle {...draggableProvided.dragHandleProps}>
+                <BoardHandle {...boardDraggableProvided.dragHandleProps}>
                   <RxDragHandleDots2 size={26} />
                 </BoardHandle>
 

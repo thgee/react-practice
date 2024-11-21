@@ -12,7 +12,7 @@ export const Title = styled.h1`
   font-family: "CookieRun-bold";
 `;
 
-export const Wrapper = styled.ul`
+export const Wrapper = styled.ul<{ isDragging: boolean }>`
   background-color: ${darkTheme.boardColor};
   width: 100%;
   border-radius: 10px;
@@ -20,6 +20,14 @@ export const Wrapper = styled.ul`
   height: fit-content;
   display: flex;
   flex-direction: column;
+  ${(p) =>
+    p.isDragging &&
+    `
+    box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.2);
+    outline : 4px solid #33ff88;
+    transform : scale(1.1);
+    transition : transform 0.2s;
+  `};
 `;
 export const Area = styled.div<{
   isDraggingOver: boolean;

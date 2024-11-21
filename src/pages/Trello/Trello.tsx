@@ -177,7 +177,7 @@ export const Trello = () => {
       <Bg>
         <Inner>
           <Droppable droppableId={"boards"} type="board" direction="horizontal">
-            {(provided, snapshot) => (
+            {(provided) => (
               <Boards {...provided.droppableProps} ref={provided.innerRef}>
                 {boards.map((boardInfo, idx) => (
                   <Board
