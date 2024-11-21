@@ -1,4 +1,4 @@
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { IBoard, lastBoardIdState, todoState } from "../../atoms";
@@ -6,9 +6,10 @@ import {
   AddBoardBtn,
   AddBoardForm,
   AddBoardLabel,
+  Bg,
   BoardPlaceholder,
   Boards,
-  Wrapper,
+  Inner,
 } from "./styles";
 import { Board } from "../../components/Board/Board";
 import { TrashCan } from "../../components/TrashCan/TrashCan";
@@ -144,14 +145,21 @@ export const Trello = () => {
   const addBoard = () => {
     setAddBoardMode(true);
   };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Wrapper>
-        <Boards>
-          {boards.map((boardInfo) => (
-            <Board key={boardInfo.boardId} boardInfo={boardInfo} />
-          ))}
-
+      <Bg>
+        <Inner>
+          <Droppable droppableId={"boards"} type="board" direction="horizontal">
+            {(provided, snapshot) => (
+              <Boards {...provided.droppableProps} ref={provided.innerRef}>
+                {boards.map((boardInfo) => (
+                  <Board key={boardInfo.boardId} boardInfo={boardInfo} />
+                ))}
+                {provided.placeholder}
+              </Boards>
+            )}
+          </Droppable>
           {addBoardMode ? (
             <BoardPlaceholder isAdding={true}>
               <AddBoardForm onSubmit={handleSubmit(onValid)}>
@@ -171,9 +179,9 @@ export const Trello = () => {
               <AddBoardBtn />
             </BoardPlaceholder>
           )}
-        </Boards>
+        </Inner>
         <TrashCan />
-      </Wrapper>
+      </Bg>
     </DragDropContext>
   );
 };

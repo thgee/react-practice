@@ -9,7 +9,7 @@ interface ICardProps {
 
 export const Card = ({ todo, idx }: ICardProps) => {
   return (
-    <Draggable key={todo.id} draggableId={String(todo.id)} index={idx}>
+    <Draggable key={todo.id} draggableId={`${todo.id}`} index={idx}>
       {(provided, snapshot) => (
         <CardStyle
           ref={provided.innerRef}

@@ -75,45 +75,54 @@ export const Board = ({
   };
 
   return (
-    // <Draggable draggableId={boardName} key={boardName} index={boardName}>
-    //   {(draggableProvided, draggableSnapshot) => (
-    <Droppable droppableId={boardId.toString()} key={boardId}>
-      {(provided, snapshot) => (
-        <Wrapper>
-          <IoCloseSharp onClick={deleteBoard} />
+    <Draggable draggableId={`${boardId}`} key={boardId} index={boardId}>
+      {(draggableProvided, draggableSnapshot) => (
+        <div
+          ref={draggableProvided.innerRef}
+          {...draggableProvided.dragHandleProps}
+          {...draggableProvided.draggableProps}
+        >
+          <Droppable droppableId={boardId.toString()} key={boardId} type="todo">
+            {(provided, snapshot) => (
+              <Wrapper>
+                <IoCloseSharp onClick={deleteBoard} />
 
-          <RxDragHandleDots2 />
-          <Title>{boardName}</Title>
+                <RxDragHandleDots2 />
+                <Title>{boardName}</Title>
 
-          <Area
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            isDraggingOver={snapshot.isDraggingOver}
-            isDraggingFrom={Boolean(snapshot.draggingFromThisWith)}
-          >
-            {todos.map((todo, idx) => (
-              <Card key={todo.id} todo={todo} idx={idx} />
-            ))}
+                <Area
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  isDraggingOver={snapshot.isDraggingOver}
+                  isDraggingFrom={Boolean(snapshot.draggingFromThisWith)}
+                >
+                  {todos.map((todo, idx) => (
+                    <Card key={todo.id} todo={todo} idx={idx} />
+                  ))}
 
-            {provided.placeholder}
-            {addMode ? (
-              <AddCardStyle>
-                <form onSubmit={handleSubmit(onValid)}>
-                  <input {...register("newTodo")} placeholder={`할 일 추가`} />
-                  <div>
-                    <OkBtn onClick={handleSubmit(onValid)} />
-                    <CancelBtn onClick={cancelAdd} />
-                  </div>
-                </form>
-              </AddCardStyle>
-            ) : (
-              <AddBtn onClick={addCard} />
+                  {provided.placeholder}
+                  {addMode ? (
+                    <AddCardStyle>
+                      <form onSubmit={handleSubmit(onValid)}>
+                        <input
+                          {...register("newTodo")}
+                          placeholder={`할 일 추가`}
+                        />
+                        <div>
+                          <OkBtn onClick={handleSubmit(onValid)} />
+                          <CancelBtn onClick={cancelAdd} />
+                        </div>
+                      </form>
+                    </AddCardStyle>
+                  ) : (
+                    <AddBtn onClick={addCard} />
+                  )}
+                </Area>
+              </Wrapper>
             )}
-          </Area>
-        </Wrapper>
+          </Droppable>
+        </div>
       )}
-    </Droppable>
-    // )}
-    // </Draggable>
+    </Draggable>
   );
 };

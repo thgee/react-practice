@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { IoIosAdd } from "react-icons/io";
 
-export const Wrapper = styled.div`
+export const Bg = styled.div`
   display: flex;
   justify-content: center;
   background-color: #000;
@@ -14,20 +14,27 @@ export const Wrapper = styled.div`
   min-width: fit-content;
 `;
 
-export const Boards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 40px;
+export const Inner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 30px;
-  min-width: 1000px;
-  flex-wrap: wrap;
+`;
+
+export const Boards = styled.div`
+  display: flex;
+  gap: 30px;
+  > div {
+    width: 300px;
+  }
 `;
 
 export const BoardPlaceholder = styled.div<{ isAdding?: boolean }>`
   background-color: rgba(255, 255, 255, 0.3);
   width: 100%;
   border-radius: 10px;
-  min-height: 300px;
+  width: 300px;
+  height: 300px;
   display: flex;
   justify-content: center;
   border: 2.4px solid #eee;
