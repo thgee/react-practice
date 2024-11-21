@@ -20,6 +20,7 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 
 export const Board = ({
   boardInfo: { boardId, boardName, todos },
+  idx: idx,
 }: IBoardProps) => {
   const setTodo = useSetRecoilState(todoState);
   const [addMode, setAddMode] = useState(false);
@@ -76,13 +77,21 @@ export const Board = ({
   };
 
   return (
-    <Draggable draggableId={`${boardId}`} key={boardId} index={boardId}>
+    <Draggable
+      draggableId={`board-${boardId}`}
+      key={`board-${boardId}`}
+      index={idx}
+    >
       {(draggableProvided, draggableSnapshot) => (
         <div
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
         >
-          <Droppable droppableId={boardId.toString()} key={boardId} type="todo">
+          <Droppable
+            droppableId={`todo-${boardId}`}
+            key={`todo-${boardId}`}
+            type="todo"
+          >
             {(provided, snapshot) => (
               <Wrapper>
                 {/* <IoCloseSharp onClick={deleteBoard} /> */}

@@ -6,4 +6,5 @@ export interface IForm {
 
 export interface IBoardProps {
   boardInfo: IBoard;
+  idx: number;
 }

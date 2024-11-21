@@ -44,7 +44,7 @@ export const Trello = () => {
         const copyAllBoards = [...allBoards];
 
         const targetBoardIdx = copyAllBoards.findIndex(
-          (board) => String(board.boardId) === source.droppableId
+          (board) => String(board.boardId) === source.droppableId.split("-")[1]
         );
 
         const targetBoard = { ...copyAllBoards[targetBoardIdx] };
@@ -56,14 +56,34 @@ export const Trello = () => {
         return copyAllBoards;
       });
       return;
-    } else {
+    }
+
+    // board 이동
+    if (source.droppableId.split("-")[0] === "boards") {
+      console.log(source);
+      console.log(destination);
       setBoards((allBoards) => {
-        // 보드 내 이동
-        if (source.droppableId === destination.droppableId) {
+        const copyAllBoards = allBoards.slice();
+        console.log(source);
+        const [board] = copyAllBoards.splice(source.index, 1);
+        console.log(board);
+        copyAllBoards.splice(destination.index, 0, board);
+        localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
+
+        return copyAllBoards;
+      });
+    }
+
+    // todo 이동
+    if (source.droppableId.split("-")[0] === "todo") {
+      // 보드 내 이동
+      if (source.droppableId === destination.droppableId) {
+        setBoards((allBoards) => {
           const copyAllBoards = [...allBoards];
           // 현재 보드의 idx를 찾아야 함
           const targetBoardIdx = copyAllBoards.findIndex(
-            (board) => String(board.boardId) === source.droppableId
+            (board) =>
+              String(board.boardId) === source.droppableId.split("-")[1]
           );
 
           // 현재보드의 투두에 들어있는 값들을 복사
@@ -78,42 +98,48 @@ export const Trello = () => {
           copyAllBoards[targetBoardIdx] = targetBoard;
           localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
           return copyAllBoards;
-        }
+        });
+      }
 
-        // 보드 간 이동
-        const copyAllBoards = [...allBoards];
+      // 보드 간 이동
+      if (source.droppableId !== destination.droppableId) {
+        setBoards((allBoards) => {
+          const copyAllBoards = [...allBoards];
 
-        const startBoardIdx = copyAllBoards.findIndex(
-          (board) => String(board.boardId) === source.droppableId
-        );
+          const startBoardIdx = copyAllBoards.findIndex(
+            (board) =>
+              String(board.boardId) === source.droppableId.split("-")[1]
+          );
 
-        const endBoardIdx = copyAllBoards.findIndex(
-          (board) => String(board.boardId) === destination.droppableId
-        );
+          const endBoardIdx = copyAllBoards.findIndex(
+            (board) =>
+              String(board.boardId) === destination.droppableId.split("-")[1]
+          );
 
-        const startBoard = { ...copyAllBoards[startBoardIdx] };
-        const endBoard = { ...copyAllBoards[endBoardIdx] };
+          const startBoard = { ...copyAllBoards[startBoardIdx] };
+          const endBoard = { ...copyAllBoards[endBoardIdx] };
 
-        const startBoardTodos = [...startBoard.todos];
-        const endBoardTodos = [...endBoard.todos];
+          const startBoardTodos = [...startBoard.todos];
+          const endBoardTodos = [...endBoard.todos];
 
-        // 현재 잡고있는 todo
-        const task = startBoardTodos[source.index];
+          // 현재 잡고있는 todo
+          const task = startBoardTodos[source.index];
 
-        // 시작보드에서 todo 삭제
-        startBoardTodos.splice(source.index, 1);
-        startBoard.todos = startBoardTodos;
+          // 시작보드에서 todo 삭제
+          startBoardTodos.splice(source.index, 1);
+          startBoard.todos = startBoardTodos;
 
-        // 종료보드에 todo 추가
-        endBoardTodos.splice(destination.index, 0, task);
-        endBoard.todos = endBoardTodos;
+          // 종료보드에 todo 추가
+          endBoardTodos.splice(destination.index, 0, task);
+          endBoard.todos = endBoardTodos;
 
-        copyAllBoards[startBoardIdx] = startBoard;
-        copyAllBoards[endBoardIdx] = endBoard;
+          copyAllBoards[startBoardIdx] = startBoard;
+          copyAllBoards[endBoardIdx] = endBoard;
 
-        localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
-        return copyAllBoards;
-      });
+          localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
+          return copyAllBoards;
+        });
+      }
     }
   };
 
@@ -153,8 +179,12 @@ export const Trello = () => {
           <Droppable droppableId={"boards"} type="board" direction="horizontal">
             {(provided, snapshot) => (
               <Boards {...provided.droppableProps} ref={provided.innerRef}>
-                {boards.map((boardInfo) => (
-                  <Board key={boardInfo.boardId} boardInfo={boardInfo} />
+                {boards.map((boardInfo, idx) => (
+                  <Board
+                    key={boardInfo.boardId}
+                    boardInfo={boardInfo}
+                    idx={idx}
+                  />
                 ))}
                 {provided.placeholder}
               </Boards>
@@ -180,7 +210,8 @@ export const Trello = () => {
             </BoardPlaceholder>
           )}
         </Inner>
-        <TrashCan />
+        <TrashCan mode="board" />
+        <TrashCan mode="todo" />
       </Bg>
     </DragDropContext>
   );
