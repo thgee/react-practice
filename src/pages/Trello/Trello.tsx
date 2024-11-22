@@ -25,6 +25,7 @@ export const Trello = () => {
   const [lastBoardId, setLastBoardId] = useRecoilState(lastBoardIdState);
   const [addBoardMode, setAddBoardMode] = useState(false);
   const { setValue, register, handleSubmit } = useForm<IBoardForm>();
+  const [isTrashOn, setIsTrashOn] = useState(false);
 
   useEffect(() => {
     const boardsData = localStorage.getItem("boardsData");
@@ -184,6 +185,7 @@ export const Trello = () => {
                     key={boardInfo.boardId}
                     boardInfo={boardInfo}
                     idx={idx}
+                    setIsTrashOn={setIsTrashOn}
                   />
                 ))}
                 {provided.placeholder}

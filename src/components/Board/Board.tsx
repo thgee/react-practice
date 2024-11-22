@@ -20,7 +20,8 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 
 export const Board = ({
   boardInfo: { boardId, boardName, todos },
-  idx: idx,
+  idx,
+  setIsTrashOn,
 }: IBoardProps) => {
   const setTodo = useSetRecoilState(todoState);
   const [addMode, setAddMode] = useState(false);
@@ -82,59 +83,63 @@ export const Board = ({
       key={`board-${boardId}`}
       index={idx}
     >
-      {(boardDraggableProvided, boardDraggableSnapshot) => (
-        <div
-          ref={boardDraggableProvided.innerRef}
-          {...boardDraggableProvided.draggableProps}
-        >
-          <Droppable
-            droppableId={`todo-${boardId}`}
-            key={`todo-${boardId}`}
-            type="todo"
+      {(boardDraggableProvided, boardDraggableSnapshot) => {
+        setIsTrashOn(boardDraggableSnapshot.isDragging);
+        console.log(123132);
+        return (
+          <div
+            ref={boardDraggableProvided.innerRef}
+            {...boardDraggableProvided.draggableProps}
           >
-            {(provided, snapshot) => (
-              <Wrapper isDragging={boardDraggableSnapshot.isDragging}>
-                {/* <IoCloseSharp onClick={deleteBoard} /> */}
+            <Droppable
+              droppableId={`todo-${boardId}`}
+              key={`todo-${boardId}`}
+              type="todo"
+            >
+              {(provided, snapshot) => (
+                <Wrapper isDragging={boardDraggableSnapshot.isDragging}>
+                  {/* <IoCloseSharp onClick={deleteBoard} /> */}
 
-                <BoardHandle {...boardDraggableProvided.dragHandleProps}>
-                  <RxDragHandleDots2 size={26} />
-                </BoardHandle>
+                  <BoardHandle {...boardDraggableProvided.dragHandleProps}>
+                    <RxDragHandleDots2 size={26} />
+                  </BoardHandle>
 
-                <Title>{boardName}</Title>
+                  <Title>{boardName}</Title>
 
-                <Area
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  isDraggingOver={snapshot.isDraggingOver}
-                  isDraggingFrom={Boolean(snapshot.draggingFromThisWith)}
-                >
-                  {todos.map((todo, idx) => (
-                    <Card key={todo.id} todo={todo} idx={idx} />
-                  ))}
+                  <Area
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    isDraggingOver={snapshot.isDraggingOver}
+                    isDraggingFrom={Boolean(snapshot.draggingFromThisWith)}
+                  >
+                    {todos.map((todo, idx) => (
+                      <Card key={todo.id} todo={todo} idx={idx} />
+                    ))}
 
-                  {provided.placeholder}
-                  {addMode ? (
-                    <AddCardStyle>
-                      <form onSubmit={handleSubmit(onValid)}>
-                        <input
-                          {...register("newTodo")}
-                          placeholder={`할 일 추가`}
-                        />
-                        <div>
-                          <OkBtn onClick={handleSubmit(onValid)} />
-                          <CancelBtn onClick={cancelAdd} />
-                        </div>
-                      </form>
-                    </AddCardStyle>
-                  ) : (
-                    <AddBtn onClick={addCard} />
-                  )}
-                </Area>
-              </Wrapper>
-            )}
-          </Droppable>
-        </div>
-      )}
+                    {provided.placeholder}
+                    {addMode ? (
+                      <AddCardStyle>
+                        <form onSubmit={handleSubmit(onValid)}>
+                          <input
+                            {...register("newTodo")}
+                            placeholder={`할 일 추가`}
+                          />
+                          <div>
+                            <OkBtn onClick={handleSubmit(onValid)} />
+                            <CancelBtn onClick={cancelAdd} />
+                          </div>
+                        </form>
+                      </AddCardStyle>
+                    ) : (
+                      <AddBtn onClick={addCard} />
+                    )}
+                  </Area>
+                </Wrapper>
+              )}
+            </Droppable>
+          </div>
+        );
+      }}
     </Draggable>
   );
 };

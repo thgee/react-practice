@@ -13,7 +13,11 @@ export const TrashCan = ({ mode }: ITrashCanProps) => {
       type={mode}
     >
       {(provided, snapshot) => (
-        <TrashCanContainer {...provided.droppableProps} ref={provided.innerRef}>
+        <TrashCanContainer
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+          isDraggingOver={snapshot.isDraggingOver}
+        >
           <TrashCanIcon isDraggingOver={snapshot.isDraggingOver} />
         </TrashCanContainer>
       )}
