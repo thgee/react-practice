@@ -14,7 +14,7 @@ export const TrashCanContainer = styled.div`
   border-radius: 0 0 55px 55px;
   opacity: 0;
   background-color: #ff0011;
-  translate: 0 -20%;
+  translate: -50% -20%;
   z-index: 9999;
   &.on-drag-over&.trash-can-board,
   &.on-drag-over&.trash-can-todo {

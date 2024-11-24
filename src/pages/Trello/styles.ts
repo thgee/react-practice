@@ -15,7 +15,7 @@ export const Bg = styled.div`
 
   :has(.on-drag-board) .trash-can-board,
   :has(.on-drag-todo) .trash-can-todo {
-    translate: 0 0;
+    translate: -50% 0;
     opacity: 1;
   }
 `;
