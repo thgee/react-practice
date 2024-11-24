@@ -21,7 +21,6 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 export const Board = ({
   boardInfo: { boardId, boardName, todos },
   idx,
-  setIsTrashOn,
 }: IBoardProps) => {
   const setTodo = useSetRecoilState(todoState);
   const [addMode, setAddMode] = useState(false);
@@ -38,6 +37,7 @@ export const Board = ({
   };
 
   const deleteBoard = () => {
+    console.log("삭제");
     // atom에서 해당 보드 삭제
     setTodo((boards) => {
       const copyBoards = [...boards];
@@ -84,8 +84,6 @@ export const Board = ({
       index={idx}
     >
       {(boardDraggableProvided, boardDraggableSnapshot) => {
-        setIsTrashOn(boardDraggableSnapshot.isDragging);
-        console.log(123132);
         return (
           <div
             ref={boardDraggableProvided.innerRef}
@@ -97,7 +95,12 @@ export const Board = ({
               type="todo"
             >
               {(provided, snapshot) => (
-                <Wrapper isDragging={boardDraggableSnapshot.isDragging}>
+                <Wrapper
+                  isDragging={boardDraggableSnapshot.isDragging}
+                  className={
+                    boardDraggableSnapshot.isDragging ? "on-drag-board" : ""
+                  }
+                >
                   {/* <IoCloseSharp onClick={deleteBoard} /> */}
 
                   <BoardHandle {...boardDraggableProvided.dragHandleProps}>

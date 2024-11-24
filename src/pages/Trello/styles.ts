@@ -12,6 +12,12 @@ export const Bg = styled.div`
   position: relative;
   width: 100%;
   min-width: fit-content;
+
+  :has(.on-drag-board) .trash-can-board,
+  :has(.on-drag-todo) .trash-can-todo {
+    translate: 0 0;
+    opacity: 1;
+  }
 `;
 
 export const Inner = styled.div`

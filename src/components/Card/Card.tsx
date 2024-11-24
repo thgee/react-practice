@@ -16,6 +16,7 @@ export const Card = ({ todo, idx }: ICardProps) => {
           {...provided.dragHandleProps}
           {...provided.draggableProps}
           isDragging={snapshot.isDragging}
+          className={`${snapshot.isDragging ? "on-drag-todo" : ""}`}
         >
           {todo.text}
         </CardStyle>
