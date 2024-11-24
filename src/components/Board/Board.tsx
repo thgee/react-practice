@@ -36,19 +36,6 @@ export const Board = ({
     setFocus("newTodo");
   };
 
-  const deleteBoard = () => {
-    console.log("삭제");
-    // atom에서 해당 보드 삭제
-    setTodo((boards) => {
-      const copyBoards = [...boards];
-
-      // 로컬스토리지 업데이트
-      localStorage.setItem("boardsData", JSON.stringify(copyBoards));
-
-      return copyBoards;
-    });
-  };
-
   const onValid = ({ newTodo }: IForm) => {
     const _newTodo = {
       id: Date.now(),

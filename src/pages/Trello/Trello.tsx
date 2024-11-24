@@ -15,6 +15,7 @@ import { Board } from "../../components/Board/Board";
 import { TrashCan } from "../../components/TrashCan/TrashCan";
 import { CancelBtn, OkBtn } from "../../components/Board/styles";
 import { useForm } from "react-hook-form";
+import Draggable from "react-draggable";
 
 interface IBoardForm {
   boardName: string;
@@ -38,8 +39,20 @@ export const Trello = () => {
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
-    // 쓰레기통으로 이동
-    if (destination.droppableId === "trashCan") {
+
+    // board 삭제
+    if (destination.droppableId === "trashCan-board") {
+      setBoards((allBoards) => {
+        const copyAllBoards = allBoards.slice();
+        copyAllBoards.splice(source.index, 1);
+        localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
+        return copyAllBoards;
+      });
+      return;
+    }
+
+    // todo 삭제
+    if (destination.droppableId === "trashCan-todo") {
       setBoards((allBoards) => {
         const copyAllBoards = [...allBoards];
 
@@ -59,23 +72,20 @@ export const Trello = () => {
     }
 
     // board 이동
-    if (source.droppableId.split("-")[0] === "boards") {
-      console.log(source);
-      console.log(destination);
+    if (destination.droppableId === "boards") {
       setBoards((allBoards) => {
         const copyAllBoards = allBoards.slice();
-        console.log(source);
         const [board] = copyAllBoards.splice(source.index, 1);
-        console.log(board);
         copyAllBoards.splice(destination.index, 0, board);
         localStorage.setItem("boardsData", JSON.stringify(copyAllBoards));
 
         return copyAllBoards;
       });
+      return;
     }
 
     // todo 이동
-    if (source.droppableId.split("-")[0] === "todo") {
+    if (destination.droppableId.split("-")[0] === "todo") {
       // 보드 내 이동
       if (source.droppableId === destination.droppableId) {
         setBoards((allBoards) => {
@@ -140,6 +150,7 @@ export const Trello = () => {
           return copyAllBoards;
         });
       }
+      return;
     }
   };
 

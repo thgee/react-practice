@@ -8,8 +8,8 @@ interface ITrashCanProps {
 export const TrashCan = ({ mode }: ITrashCanProps) => {
   return (
     <Droppable
-      droppableId={`${mode}-trashCan`}
-      key={`${mode}-trashCan`}
+      droppableId={`trashCan-${mode}`}
+      key={`trashCan-${mode}`}
       type={mode}
     >
       {(provided, snapshot) => (
