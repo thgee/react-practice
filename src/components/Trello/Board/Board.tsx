@@ -1,7 +1,7 @@
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Card } from "../Card/Card";
 import { useForm } from "react-hook-form";
-import { todoState } from "../../atoms";
+import { todoState } from "../../../atoms";
 import { useSetRecoilState } from "recoil";
 import {
   AddBtn,

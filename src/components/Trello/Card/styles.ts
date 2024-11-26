@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { darkTheme } from "../../theme";
+import { darkTheme } from "../../../theme";
 
 export const CardStyle = styled.li<{ isDragging?: boolean }>`
   background-color: ${(p) => (p.isDragging ? "#3366ff" : darkTheme.cardColor)};

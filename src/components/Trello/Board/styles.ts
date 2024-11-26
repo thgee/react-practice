@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { darkTheme } from "../../theme";
+import { darkTheme } from "../../../theme";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { CardStyle } from "../Card/styles";

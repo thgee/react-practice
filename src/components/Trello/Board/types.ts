@@ -1,4 +1,4 @@
-import { IBoard } from "../../atoms";
+import { IBoard } from "../../../atoms";
 
 export interface IForm {
   newTodo: string;
