@@ -39,6 +39,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:5.0.0"],\
           ["eslint-plugin-react-refresh", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:0.4.14"],\
           ["globals", "npm:15.12.0"],\
+          ["motion", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:11.11.17"],\
           ["react", "npm:18.3.1"],\
           ["react-beautiful-dnd", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:13.1.1"],\
           ["react-dom", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:18.3.1"],\
@@ -2762,6 +2763,37 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["framer-motion", [\
+      ["npm:11.11.17", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/framer-motion-npm-11.11.17-76b5773744-10c0.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "npm:11.11.17"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:7b58a8004871f8e22bec2ec71d2ec641fe0d98b93a9c0f93e16829d3fd7db6565f45369612f046d84552659912f01d4597da1673b93f251a606d31eb64e4bfd0#npm:11.11.17", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-4a2aac44bb/3/AppData/Local/Yarn/Berry/cache/framer-motion-npm-11.11.17-76b5773744-10c0.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "virtual:7b58a8004871f8e22bec2ec71d2ec641fe0d98b93a9c0f93e16829d3fd7db6565f45369612f046d84552659912f01d4597da1673b93f251a606d31eb64e4bfd0#npm:11.11.17"],\
+          ["@emotion/is-prop-valid", null],\
+          ["@types/emotion__is-prop-valid", null],\
+          ["@types/react", "npm:18.3.12"],\
+          ["@types/react-dom", "npm:18.3.1"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:18.3.1"],\
+          ["tslib", "npm:2.8.1"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/is-prop-valid",\
+          "@types/emotion__is-prop-valid",\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fs-minipass", [\
       ["npm:2.1.0", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/fs-minipass-npm-2.1.0-501ef87306-10c0.zip/node_modules/fs-minipass/",\
@@ -3527,6 +3559,38 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["motion", [\
+      ["npm:11.11.17", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/motion-npm-11.11.17-79264e95d1-10c0.zip/node_modules/motion/",\
+        "packageDependencies": [\
+          ["motion", "npm:11.11.17"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:11.11.17", {\
+        "packageLocation": "./.yarn/__virtual__/motion-virtual-7b58a80048/3/AppData/Local/Yarn/Berry/cache/motion-npm-11.11.17-79264e95d1-10c0.zip/node_modules/motion/",\
+        "packageDependencies": [\
+          ["motion", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:11.11.17"],\
+          ["@emotion/is-prop-valid", null],\
+          ["@types/emotion__is-prop-valid", null],\
+          ["@types/react", "npm:18.3.12"],\
+          ["@types/react-dom", "npm:18.3.1"],\
+          ["framer-motion", "virtual:7b58a8004871f8e22bec2ec71d2ec641fe0d98b93a9c0f93e16829d3fd7db6565f45369612f046d84552659912f01d4597da1673b93f251a606d31eb64e4bfd0#npm:11.11.17"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:18.3.1"],\
+          ["tslib", "npm:2.8.1"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/is-prop-valid",\
+          "@types/emotion__is-prop-valid",\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["ms", [\
       ["npm:2.1.3", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/ms-npm-2.1.3-81ff3cfac1-10c0.zip/node_modules/ms/",\
@@ -4069,6 +4133,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:5.0.0"],\
           ["eslint-plugin-react-refresh", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:0.4.14"],\
           ["globals", "npm:15.12.0"],\
+          ["motion", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:11.11.17"],\
           ["react", "npm:18.3.1"],\
           ["react-beautiful-dnd", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:13.1.1"],\
           ["react-dom", "virtual:604b34752b27c6c672065737e3fc11978d182c7a85665c7e5299cfc09963b8b9fa219155afeb3d19b0c82b4ee905b9f3aec2e480f3eadea191ee9f305e328cd6#npm:18.3.1"],\

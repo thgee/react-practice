@@ -14,7 +14,6 @@ import {
   Wrapper,
 } from "./styles";
 import { useState } from "react";
-import { IoCloseSharp } from "react-icons/io5";
 import { IBoardProps, IForm } from "./types";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
