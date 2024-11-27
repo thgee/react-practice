@@ -1,11 +1,17 @@
 import styled from "@emotion/styled";
 
-export const FramerContainer = styled.div`
+export const Bg = styled.div`
   height: 100vh;
   background-color: black;
-  display: grid;
+  display: flex;
   justify-content: center;
-  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+`;
+
+export const FramerContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
   gap: 10px;
 `;
 export const Wrapper = styled.div`
