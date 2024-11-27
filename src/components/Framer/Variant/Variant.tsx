@@ -1,3 +1,4 @@
+import { Wrapper } from "../../../pages/Framer/styles";
 import { Box, Circle } from "./styles";
 
 const boxVariants = {
@@ -30,13 +31,14 @@ const circleVariants = {
 
 export const Variant = () => {
   return (
-    <div>
+    <Wrapper>
       <Box variants={boxVariants} initial="start" animate="end">
         <Circle variants={circleVariants} />
         <Circle variants={circleVariants} />
         <Circle variants={circleVariants} />
         <Circle variants={circleVariants} />
       </Box>
-    </div>
+      <span className="logo">Variant</span>
+    </Wrapper>
   );
 };

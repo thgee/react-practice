@@ -1,3 +1,4 @@
+import { Wrapper } from "../../../pages/Framer/styles";
 import { Box } from "./styles";
 import { Variants } from "motion/react";
 
@@ -8,8 +9,9 @@ const boxVariants: Variants = {
 
 export const Gesture = () => {
   return (
-    <div>
+    <Wrapper>
       <Box variants={boxVariants} whileHover={"hover"} whileTap={"tap"}></Box>
-    </div>
+      <span className="logo">Gesture</span>
+    </Wrapper>
   );
 };

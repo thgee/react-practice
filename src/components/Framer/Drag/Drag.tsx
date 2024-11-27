@@ -1,6 +1,7 @@
-import { MutableRefObject } from "react";
+import { useRef } from "react";
 import { Box } from "./styles";
 import { Variants } from "motion/react";
+import { Wrapper } from "../../../pages/Framer/styles";
 
 const boxVariants: Variants = {
   drag: {
@@ -12,12 +13,11 @@ const boxVariants: Variants = {
   },
 };
 
-interface IDragProps {
-  dragRef: MutableRefObject<null>;
-}
-export const Drag = ({ dragRef }: IDragProps) => {
+export const Drag = () => {
+  const dragRef = useRef(null);
+
   return (
-    <div>
+    <Wrapper ref={dragRef}>
       <Box
         // drag = 'x', 'y' 로 축 고정 가능
         drag
@@ -29,6 +29,7 @@ export const Drag = ({ dragRef }: IDragProps) => {
         // dragSnapToOrigin // 제자리로 돌아오기
         dragElastic={0.2} // 고정 계수 (0 ~ 1)
       ></Box>
-    </div>
+      <span className="logo">Drag</span>
+    </Wrapper>
   );
 };

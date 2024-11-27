@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { motion } from "motion/react";
 
 export const Bg = styled.div`
   height: 100vh;
@@ -14,7 +15,7 @@ export const FramerContainer = styled.div`
   place-items: center;
   gap: 10px;
 `;
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
   width: 300px;
   height: 300px;
   display: flex;
