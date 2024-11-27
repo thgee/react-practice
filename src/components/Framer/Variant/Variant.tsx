@@ -1,5 +1,4 @@
-import { Wrapper } from "../../../pages/Framer/styles";
-import { Box, Circle } from "./styles";
+import { Box, Circle, Wrapper } from "./styles";
 
 const boxVariants = {
   start: {

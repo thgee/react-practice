@@ -1,6 +1,6 @@
 import { useMotionValue, useTransform } from "motion/react";
 import { Box } from "./styles";
-import { Wrapper } from "../../../pages/Framer/styles";
+import { Wrapper } from "./styles";
 
 export const MotionValue = () => {
   // motionValue는 값이 변경되어도 리렌더링이 일어나지 않으면서 애니메이션이 작동한다.

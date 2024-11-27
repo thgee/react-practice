@@ -21,3 +21,22 @@ export const Circle = styled(motion.div)`
   background-color: white;
   box-shadow: 0 0 4px 0 #ddd;
 `;
+
+export const Wrapper = styled(motion.div)`
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(25deg, #ec801b, #ff2a4a);
+  .logo {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    font-family: "CookieRun-bold";
+    font-size: 1.3rem;
+  }
+`;

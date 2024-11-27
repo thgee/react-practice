@@ -1,4 +1,4 @@
-import { Wrapper } from "../../../pages/Framer/styles";
+import { Wrapper } from "./styles";
 import { Box } from "./styles";
 import { Variants } from "motion/react";
 

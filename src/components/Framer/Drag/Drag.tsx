@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Box } from "./styles";
 import { Variants } from "motion/react";
-import { Wrapper } from "../../../pages/Framer/styles";
+import { Wrapper } from "./styles";
 
 const boxVariants: Variants = {
   drag: {

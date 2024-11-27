@@ -16,7 +16,7 @@ export const Wrapper = styled(motion.div)`
   align-items: center;
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(5deg, #c5d11a, #44e978);
+  background: linear-gradient(150deg, #ec801b, #ff7a8e);
 
   .logo {
     position: absolute;
