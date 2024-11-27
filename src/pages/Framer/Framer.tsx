@@ -1,9 +1,12 @@
+import { useRef } from "react";
 import { Drag } from "../../components/Framer/Drag/Drag";
 import { Gesture } from "../../components/Framer/Gesture/Gesture";
 import { Variant } from "../../components/Framer/Variant/Variant";
 import { Bg, FramerContainer, Wrapper } from "./styles";
 
 export const Framer = () => {
+  const dragRef = useRef(null);
+
   return (
     <Bg>
       <FramerContainer>
@@ -15,8 +18,8 @@ export const Framer = () => {
           <Gesture />
           <span className="logo">Gesture</span>
         </Wrapper>
-        <Wrapper>
-          <Drag />
+        <Wrapper ref={dragRef}>
+          <Drag dragRef={dragRef} />
           <span className="logo">Drag</span>
         </Wrapper>
       </FramerContainer>
