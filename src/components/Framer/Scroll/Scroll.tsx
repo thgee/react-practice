@@ -4,7 +4,7 @@ import { Wrapper } from "./styles";
 
 export const Scroll = () => {
   // scrollY는 px단위, scrollProgress는 0~1 로 변환
-  const { scrollY, scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll();
 
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 1.4]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 130]);

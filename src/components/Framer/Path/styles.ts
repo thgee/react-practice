@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import { motion } from "motion/react";
 
-export const Box = styled(motion.div)`
-  width: 100px;
-  height: 100px;
-  border-radius: 30px;
-  background-color: white;
+export const Apple = styled("svg")`
+  stroke-width: 0.3;
+  width: 150px;
+  height: 180px;
+  stroke: white;
 `;
-
 export const Wrapper = styled(motion.div)`
   width: 300px;
   height: 300px;
@@ -16,7 +15,7 @@ export const Wrapper = styled(motion.div)`
   align-items: center;
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(325deg, #0b22b1, #812aff);
+  background: linear-gradient(5deg, #45d91a, #f4a9f8);
 
   .logo {
     position: absolute;

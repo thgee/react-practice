@@ -4,6 +4,7 @@ import { Variant } from "../../components/Framer/Variant/Variant";
 import { Bg, FramerContainer } from "./styles";
 import { MotionValue } from "../../components/Framer/MotionValue/MotionValue";
 import { Scroll } from "../../components/Framer/Scroll/Scroll";
+import { Path } from "../../components/Framer/Path/Path";
 
 export const Framer = () => {
   return (
@@ -14,6 +15,7 @@ export const Framer = () => {
         <Drag />
         <MotionValue />
         <Scroll />
+        <Path />
       </FramerContainer>
     </Bg>
   );
