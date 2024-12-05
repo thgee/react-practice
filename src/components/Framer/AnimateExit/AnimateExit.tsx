@@ -18,7 +18,7 @@ export const AnimateExit = () => {
       scale: 1.5,
       opacity: 1,
       rotateX: 2360,
-      backgroundColor: "#707",
+      backgroundColor: "#704",
     },
     exit: {
       scale: 0,
