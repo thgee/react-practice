@@ -5,6 +5,7 @@ import { Bg, FramerContainer } from "./styles";
 import { MotionValue } from "../../components/Framer/MotionValue/MotionValue";
 import { Scroll } from "../../components/Framer/Scroll/Scroll";
 import { Path } from "../../components/Framer/Path/Path";
+import { AnimateExit } from "../../components/Framer/AnimateExit/AnimateExit";
 
 export const Framer = () => {
   return (
@@ -16,6 +17,7 @@ export const Framer = () => {
         <MotionValue />
         <Scroll />
         <Path />
+        <AnimateExit />
       </FramerContainer>
     </Bg>
   );
