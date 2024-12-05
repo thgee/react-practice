@@ -7,6 +7,7 @@ export const Bg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 export const FramerContainer = styled.div`

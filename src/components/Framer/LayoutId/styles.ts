@@ -13,6 +13,7 @@ export const Start = styled(motion.div)`
 export const End = styled(motion.span)`
   position: relative;
   right: -100px;
+  color: #fff;
   font-size: 1.4rem;
   font-family: "CookieRun-bold";
 `;
@@ -20,13 +21,14 @@ export const End = styled(motion.span)`
 export const Wrapper = styled(motion.div)`
   width: 300px;
   height: 300px;
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  align-items: center;
-  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
   border-radius: 20px;
-  background: linear-gradient(245deg, #1bff21, #2ffaff);
+  background: linear-gradient(15deg, rgb(235, 33, 177), rgb(129, 42, 255));
+  padding: 10px;
+  padding-bottom: 60px;
+  position: relative;
 
   .logo {
     position: absolute;
@@ -38,17 +40,25 @@ export const Wrapper = styled(motion.div)`
   }
 `;
 
-export const Btn = styled.button`
-  padding: 6px 12px;
-  border: 2px solid #123512;
-  border-radius: 8px;
-  font-family: "CookieRun-bold";
+export const Overlay = styled(motion.div)`
   position: absolute;
-  top: 10px;
-  left: 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-  :hover {
-    scale: 1.1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: 100%;
+`;
+
+export const Card = styled(motion.div)`
+  :first-child,
+  :nth-child(4) {
+    grid-column: span 2;
   }
+  border-radius: 10px;
+  cursor: pointer;
+  :hover {
+    background-color: #ccf;
+  }
+  transition: background-color 200ms;
+  background-color: #fff;
 `;

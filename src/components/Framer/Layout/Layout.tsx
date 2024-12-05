@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Btn, Circle, End, Start, Wrapper } from "./styles";
-import { motion } from "motion/react";
+import { Btn, End, Start, Wrapper } from "./styles";
 
 export const Layout = () => {
   const [showBox, setShowBox] = useState(false);
@@ -17,8 +16,8 @@ export const Layout = () => {
 
       {/* 이렇게 layoutId를 같게 해주면 */}
       {/* Framer가 적절하게 해당 요소들을 묶어서 애니메이션을 적용해준다. */}
-      {showBox && <Start layoutId="wow" />}
-      {!showBox && <End layoutId="wow">우와..</End>}
+      {!showBox && <Start layoutId="wow" />}
+      {showBox && <End layoutId="wow">우와..</End>}
       <span className="logo">Layout</span>
     </Wrapper>
   );

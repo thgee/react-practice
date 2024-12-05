@@ -7,6 +7,7 @@ import { Scroll } from "../../components/Framer/Scroll/Scroll";
 import { Path } from "../../components/Framer/Path/Path";
 import { AnimateExit } from "../../components/Framer/AnimateExit/AnimateExit";
 import { Layout } from "../../components/Framer/Layout/Layout";
+import { LayoutId } from "../../components/Framer/LayoutId/LayoutId";
 
 export const Framer = () => {
   return (
@@ -20,6 +21,7 @@ export const Framer = () => {
         <Path />
         <AnimateExit />
         <Layout />
+        <LayoutId />
       </FramerContainer>
     </Bg>
   );
