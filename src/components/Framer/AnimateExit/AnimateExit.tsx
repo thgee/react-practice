@@ -18,7 +18,7 @@ export const AnimateExit = () => {
       scale: 1.5,
       opacity: 1,
       rotateX: 2360,
-      backgroundColor: "#000",
+      backgroundColor: "#707",
     },
     exit: {
       scale: 0,
@@ -30,6 +30,8 @@ export const AnimateExit = () => {
   return (
     <Wrapper>
       {/* 컴포넌트가 언마운트 될 때의 애니메이션을 지정해줄 수 있다. */}
+      {/* custom 속성을 넣어주면 variants에서 매개변수를 사용할 수 있는데,
+      필요하다면 검색해볼것. 슬릭 ui를 구현할 때 initial, exit의 방향을 바꿔야 할 때 필요하다.*/}
       <AnimatePresence>
         {showBox && (
           <Box
@@ -37,7 +39,6 @@ export const AnimateExit = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            transition={{ duration: 0.5 }}
           />
         )}
       </AnimatePresence>
