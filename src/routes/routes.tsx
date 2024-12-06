@@ -10,6 +10,6 @@ export const router = createBrowserRouter(
     { path: "/framer", element: <Framer /> },
   ],
   {
-    basename: import.meta.env.BASE_URL,
+    basename: `/react-practice`,
   }
 );
