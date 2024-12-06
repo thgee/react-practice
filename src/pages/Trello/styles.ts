@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { IoIosAdd } from "react-icons/io";
-
 export const Bg = styled.div`
   display: flex;
   justify-content: center;

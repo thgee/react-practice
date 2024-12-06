@@ -3,19 +3,20 @@ import { Card } from "../Card/Card";
 import { useForm } from "react-hook-form";
 import { todoState } from "../../../atoms";
 import { useSetRecoilState } from "recoil";
-import {
-  AddBtn,
-  AddCardStyle,
-  Area,
-  BoardHandle,
-  CancelBtn,
-  OkBtn,
-  Title,
-  Wrapper,
-} from "./styles";
+
 import { useState } from "react";
 import { IBoardProps, IForm } from "./types";
 import { RxDragHandleDots2 } from "react-icons/rx";
+import {
+  Wrapper,
+  BoardHandle,
+  Title,
+  Area,
+  AddCardStyle,
+  OkBtn,
+  CancelBtn,
+  AddBtn,
+} from "./styles";
 
 export const Board = ({
   boardInfo: { boardId, boardName, todos },
