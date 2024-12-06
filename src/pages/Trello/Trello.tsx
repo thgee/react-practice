@@ -15,7 +15,6 @@ import { Board } from "../../components/Trello/Board/Board";
 import { TrashCan } from "../../components/Trello/TrashCan/TrashCan";
 import { CancelBtn, OkBtn } from "../../components/Trello/Board/styles";
 import { useForm } from "react-hook-form";
-import Draggable from "react-draggable";
 
 interface IBoardForm {
   boardName: string;
