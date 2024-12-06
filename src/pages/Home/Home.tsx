@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
-import { HomeContainer, TrelloBtn, TrelloWrap } from "./styles";
+import {
+  FramerBtn,
+  FramerWrap,
+  HomeContainer,
+  TrelloBtn,
+  TrelloWrap,
+} from "./styles";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -12,6 +18,13 @@ export const Home = () => {
           <TrelloBtn />
           <span>Trello</span>
         </TrelloWrap>
+      </Draggable>
+
+      <Draggable>
+        <FramerWrap onDoubleClick={() => navigate("/framer")}>
+          <FramerBtn />
+          <span>Framer</span>
+        </FramerWrap>
       </Draggable>
     </HomeContainer>
   );

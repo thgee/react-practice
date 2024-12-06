@@ -1,7 +1,7 @@
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Card } from "../Card/Card";
 import { useForm } from "react-hook-form";
-import { todoState } from "../../atoms";
+import { todoState } from "../../../atoms";
 import { useSetRecoilState } from "recoil";
 import {
   AddBtn,
@@ -14,7 +14,6 @@ import {
   Wrapper,
 } from "./styles";
 import { useState } from "react";
-import { IoCloseSharp } from "react-icons/io5";
 import { IBoardProps, IForm } from "./types";
 import { RxDragHandleDots2 } from "react-icons/rx";
 

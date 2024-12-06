@@ -1,5 +1,5 @@
 import { Draggable } from "react-beautiful-dnd";
-import { ITodo } from "../../atoms";
+import { ITodo } from "../../../atoms";
 import { CardStyle } from "./styles";
 
 interface ICardProps {
