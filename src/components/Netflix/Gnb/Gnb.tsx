@@ -1,24 +1,22 @@
-import styled from "@emotion/styled";
 import {
   motion,
   useAnimation,
   useMotionValueEvent,
   useScroll,
-  useTransform,
   Variants,
 } from "motion/react";
-import { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { Link, useMatch } from "react-router-dom";
-
-const navVariants = {
-  top: {
-    backgroundColor: "rgba(0, 0, 0, 0)",
-  },
-  scroll: {
-    backgroundColor: "rgba(0, 0, 0, 1)",
-  },
-};
+import { useState } from "react";
+import { useMatch } from "react-router-dom";
+import {
+  Nav,
+  Col,
+  Logo,
+  Items,
+  Item,
+  LinkPointer,
+  SearchInput,
+  Search,
+} from "./style";
 
 export const Gnb = () => {
   const mainMatch = useMatch("/netflix");
@@ -71,82 +69,18 @@ export const Gnb = () => {
   );
 };
 
+const navVariants = {
+  top: {
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
+  scroll: {
+    backgroundColor: "rgba(0, 0, 0, 1)",
+  },
+};
+
 const pathVariants: Variants = {
   animate: {
     pathLength: [0, 0.2, 0],
     transition: { repeat: Infinity, duration: 3, repeatDelay: 1 },
   },
 };
-
-const Nav = styled(motion.nav)`
-  height: 100px;
-  position: fixed;
-  top: 0;
-  background-color: #000;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 40px 50px;
-`;
-
-const Logo = styled(motion.svg)`
-  margin-right: 90px;
-  height: 38px;
-  fill: ${(props) => props.theme.red};
-  cursor: pointer;
-  path {
-    stroke-width: 8px;
-    stroke: #fff;
-  }
-`;
-
-const Col = styled.div`
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-`;
-
-const Items = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-`;
-
-const Item = styled(Link)`
-  cursor: pointer;
-  color: #fff;
-  font-size: 1.2rem;
-  text-decoration: none;
-  position: relative;
-`;
-
-const LinkPointer = styled(motion.div)`
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  bottom: -20px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  border-radius: 100px;
-  background-color: ${(p) => p.theme.red};
-`;
-
-const Search = styled(FaSearch)`
-  color: #fff;
-  cursor: pointer;
-  margin-left: 15px;
-`;
-
-const SearchInput = styled(motion.input)`
-  border-radius: 6px;
-  height: 30px;
-  font-size: 1.2rem;
-  padding: 20px 10px;
-  width: 90%;
-  transform-origin: right center;
-  background-color: transparent;
-  border: 2px solid #fff;
-`;
