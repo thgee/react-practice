@@ -1,13 +1,42 @@
 import styled from "@emotion/styled";
-import { motion, Variants } from "motion/react";
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  Variants,
+} from "motion/react";
+import { useEffect, useState } from "react";
+import { FaSearch } from "react-icons/fa";
 import { Link, useMatch } from "react-router-dom";
+
+const navVariants = {
+  top: {
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
+  scroll: {
+    backgroundColor: "rgba(0, 0, 0, 1)",
+  },
+};
 
 export const Gnb = () => {
   const mainMatch = useMatch("/netflix");
   const tvMatch = useMatch("/netflix/tv");
+  const [isOpenSearchInput, setIsOpenSearchInput] = useState(false);
+  const { scrollY } = useScroll();
+
+  // 특정 상황에 애니메이션을 넣을 수 있도록 함
+  const navAnimation = useAnimation();
+  // motionValue는 애니메이션 진행중에 리렌더링이 되지 않기 때문에
+  // 해당 훅을 통해서 변화를 감지해야함
+  useMotionValueEvent(scrollY, "change", (scrollPos) => {
+    if (scrollPos > 100) navAnimation.start("top");
+    else navAnimation.start("scroll");
+  });
 
   return (
-    <Nav>
+    <Nav variants={navVariants} initial={"top"} animate={navAnimation}>
       <Col>
         <Logo viewBox="0 0 1024 276.742">
           <motion.path
@@ -28,7 +57,15 @@ export const Gnb = () => {
         </Items>
       </Col>
       <Col>
-        <Search />
+        <SearchInput
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isOpenSearchInput ? 1 : 0 }}
+          placeholder="검색어를 입력하세요."
+        />
+        <Search
+          size={"25px"}
+          onClick={() => setIsOpenSearchInput((value) => !value)}
+        />
       </Col>
     </Nav>
   );
@@ -41,7 +78,7 @@ const pathVariants: Variants = {
   },
 };
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   height: 100px;
   position: fixed;
   top: 0;
@@ -67,6 +104,7 @@ const Logo = styled(motion.svg)`
 const Col = styled.div`
   display: flex;
   align-items: center;
+  flex-grow: 1;
 `;
 
 const Items = styled.ul`
@@ -96,6 +134,19 @@ const LinkPointer = styled(motion.div)`
   background-color: ${(p) => p.theme.red};
 `;
 
-const Search = styled.span`
+const Search = styled(FaSearch)`
   color: #fff;
+  cursor: pointer;
+  margin-left: 15px;
+`;
+
+const SearchInput = styled(motion.input)`
+  border-radius: 6px;
+  height: 30px;
+  font-size: 1.2rem;
+  padding: 20px 10px;
+  width: 90%;
+  transform-origin: right center;
+  background-color: transparent;
+  border: 2px solid #fff;
 `;
