@@ -3,9 +3,9 @@ import { Gnb } from "../../components/Netflix/Gnb/Gnb";
 
 export const NetflixLayout = () => {
   return (
-    <>
+    <div style={{ backgroundColor: "red" }}>
       <Gnb />
       <Outlet />
-    </>
+    </div>
   );
 };

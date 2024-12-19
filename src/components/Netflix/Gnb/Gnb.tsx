@@ -29,8 +29,8 @@ export const Gnb = () => {
   // motionValue는 애니메이션 진행중에 리렌더링이 되지 않기 때문에
   // 해당 훅을 통해서 변화를 감지해야함
   useMotionValueEvent(scrollY, "change", (scrollPos) => {
-    if (scrollPos > 100) navAnimation.start("top");
-    else navAnimation.start("scroll");
+    if (scrollPos > 100) navAnimation.start("scroll");
+    else navAnimation.start("top");
   });
 
   return (
