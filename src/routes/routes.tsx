@@ -21,6 +21,7 @@ export const router = createBrowserRouter(
       element: <NetflixLayout />,
       children: [
         { path: "", element: <Main /> },
+        { path: ":movieId", element: <Main /> },
         { path: "search", element: <Search /> },
         { path: "tv", element: <Tv /> },
       ],
