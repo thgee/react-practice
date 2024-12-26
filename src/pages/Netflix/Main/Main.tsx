@@ -6,8 +6,9 @@ import {
 } from "../../../apis/netflix/apiGetMovies";
 import { getImgPath } from "../../../utils/utils";
 import { AnimatePresence, motion, Variants } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
+import { IMovie } from "../../../models/netflix/models";
 
 const sliderVariant: Variants = {
   initial: { x: "calc(100vw + 6px)" },
@@ -20,6 +21,11 @@ export const Main = () => {
   const navigate = useNavigate();
   const [sliderIdx, setSliderIdx] = useState(0);
 
+  // 모달이 띄워진 상태로 새로고침 시 모달 없는 상태로 만듬
+  useEffect(() => {
+    if (match) navigate("/netflix");
+  }, []);
+
   const { data: movieList } = useQuery<IGetPlayingMovies>({
     queryKey: ["movie", "nowPlaying"],
     queryFn: apiGetPlayingMovies,
@@ -27,6 +33,10 @@ export const Main = () => {
   const toggleMovieModal = (movieId: number) => {
     navigate(`/netflix/${movieId}`);
   };
+
+  const getSelectedMovieInfo = () =>
+    movieList?.results.find((it) => "" + it.id === match?.params.movieId!);
+
   return (
     <MainContainer>
       <Banner
@@ -72,34 +82,73 @@ export const Main = () => {
         </Slider>
         <div style={{ height: 200 }} />
       </AnimatePresence>
-      {match && <MovieModal movieId={match.params.movieId!} />}
+      {match && (
+        <MovieModal
+          movieId={match.params.movieId!}
+          movieInfo={getSelectedMovieInfo()!}
+        />
+      )}
     </MainContainer>
   );
 };
 
-export const MovieModal = ({ movieId }: { movieId: string }) => {
+interface IMovieModalProps {
+  movieId: string;
+  movieInfo: IMovie;
+}
+
+export const MovieModal = ({ movieId, movieInfo }: IMovieModalProps) => {
   const navigate = useNavigate();
+
   return (
     <>
-      <Outlay onClick={() => navigate("/netflix")} />
-      <MovieModalContainer layoutId={"" + movieId}></MovieModalContainer>
+      <Overlay onClick={() => navigate("/netflix")} />
+      <MovieModalContainer layoutId={"" + movieId}>
+        <MovieImg imgsrc={getImgPath(movieInfo?.backdrop_path, "w500")}>
+          <h1>{movieInfo?.title}</h1>
+        </MovieImg>
+        <Desc>{movieInfo?.overview}</Desc>
+      </MovieModalContainer>
     </>
   );
 };
 
-const Outlay = styled(motion.div)`
+const Overlay = styled(motion.div)`
   height: 100vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
 `;
+const MovieImg = styled.div<{ imgsrc: string }>`
+  height: 50%;
+  width: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)),
+    url(${(p) => p.imgsrc});
+  background-size: cover;
+  position: relative;
+
+  h1 {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 2rem;
+    color: white;
+  }
+`;
+const Desc = styled(motion.p)`
+  color: white;
+  padding: 20px;
+  line-height: 30px;
+`;
 const MovieModalContainer = styled(motion.div)`
-  width: 800px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   position: fixed;
-  top: 50px;
-  background-color: white;
+  top: 120px;
+  background-color: #333;
   left: 0;
   right: 0;
   margin: auto;
