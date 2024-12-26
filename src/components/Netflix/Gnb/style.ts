@@ -75,4 +75,9 @@ export const SearchInput = styled(motion.input)`
   transform-origin: right center;
   background-color: transparent;
   border: 2px solid #fff;
+  color: white;
+
+  &::placeholder {
+    color: white;
+  }
 `;

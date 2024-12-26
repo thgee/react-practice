@@ -6,7 +6,7 @@ import {
   Variants,
 } from "motion/react";
 import { useState } from "react";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import {
   Nav,
   Col,
@@ -17,12 +17,24 @@ import {
   SearchInput,
   Search,
 } from "./style";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+interface ISearch {
+  query: string;
+}
 
 export const Gnb = () => {
   const mainMatch = useMatch("/netflix");
   const tvMatch = useMatch("/netflix/tv");
   const [isOpenSearchInput, setIsOpenSearchInput] = useState(false);
   const { scrollY } = useScroll();
+
+  const { register, handleSubmit } = useForm<ISearch>();
+
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<ISearch> = (data) => {
+    navigate(`search?query=${data.query}`);
+  };
 
   // 특정 상황에 애니메이션을 넣을 수 있도록 함
   const navAnimation = useAnimation();
@@ -36,7 +48,12 @@ export const Gnb = () => {
   return (
     <Nav variants={navVariants} initial={"top"} animate={navAnimation}>
       <Col>
-        <Logo viewBox="0 0 1024 276.742">
+        <Logo
+          onClick={() => {
+            navigate("");
+          }}
+          viewBox="0 0 1024 276.742"
+        >
           <motion.path
             animate={"animate"}
             variants={pathVariants}
@@ -54,12 +71,14 @@ export const Gnb = () => {
           </Item>
         </Items>
       </Col>
-      <Col>
+      <Col as="form" onSubmit={handleSubmit(onSubmit)}>
         <SearchInput
+          {...register("query", { required: true })}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: isOpenSearchInput ? 1 : 0 }}
           placeholder="검색어를 입력하세요."
         />
+
         <Search
           size={"25px"}
           onClick={() => setIsOpenSearchInput((value) => !value)}
@@ -71,7 +90,7 @@ export const Gnb = () => {
 
 const navVariants = {
   top: {
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
   scroll: {
     backgroundColor: "rgba(0, 0, 0, 1)",
