@@ -4,6 +4,9 @@ import { Wrapper } from "./styles";
 import { motion } from "motion/react";
 
 // pathLength를 path에 직접 넣으면 작동하지 않는다. variants 속성으로 넣어주어야 0~1로 작동한다.
+// 그리고 반드시 css에 stroke-width와 stroke = "색상" 이 지정되어 있어야 작동한다. pathLength는 stroke를 조절하는 것이기 때문.
+//
+
 const appleVariants: Variants = {
   start: { pathLength: 0, fill: "#fff0" },
   end: {

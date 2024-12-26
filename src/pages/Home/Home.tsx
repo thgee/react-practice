@@ -4,6 +4,8 @@ import {
   FramerBtn,
   FramerWrap,
   HomeContainer,
+  NetflixBtn,
+  NetflixWrap,
   TrelloBtn,
   TrelloWrap,
 } from "./styles";
@@ -25,6 +27,13 @@ export const Home = () => {
           <FramerBtn />
           <span>Framer</span>
         </FramerWrap>
+      </Draggable>
+
+      <Draggable>
+        <NetflixWrap onDoubleClick={() => navigate("/netflix")}>
+          <NetflixBtn />
+          <span>Netflix</span>
+        </NetflixWrap>
       </Draggable>
     </HomeContainer>
   );

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FaShapes } from "react-icons/fa";
-import { RiCalendarTodoFill } from "react-icons/ri";
+import { RiCalendarTodoFill, RiNetflixFill } from "react-icons/ri";
 
 export const HomeContainer = styled.div`
   display: flex;
@@ -28,8 +28,15 @@ export const TrelloBtn = styled(RiCalendarTodoFill)`
 `;
 
 export const FramerWrap = styled(IconWrap)`
-  color: #e91e63;
+  color: #59ff53;
 `;
 export const FramerBtn = styled(FaShapes)`
+  font-size: 4rem;
+`;
+
+export const NetflixWrap = styled(IconWrap)`
+  color: #e6111b;
+`;
+export const NetflixBtn = styled(RiNetflixFill)`
   font-size: 4rem;
 `;

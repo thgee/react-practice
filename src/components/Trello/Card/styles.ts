@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { darkTheme } from "../../../theme";
 
 export const CardStyle = styled.li<{ isDragging?: boolean }>`
-  background-color: ${(p) => (p.isDragging ? "#3366ff" : darkTheme.cardColor)};
+  background-color: ${(p) => (p.isDragging ? "#3366ff" : "#fff")};
   color: ${(p) => (p.isDragging ? "#fff" : "")};
   border-radius: 4px;
   padding: 18px 10px;

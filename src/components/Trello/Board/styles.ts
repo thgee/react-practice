@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { darkTheme } from "../../../theme";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { CardStyle } from "../Card/styles";
@@ -13,7 +12,8 @@ export const Title = styled.h1`
 `;
 
 export const Wrapper = styled.ul<{ isDragging: boolean }>`
-  background-color: ${darkTheme.boardColor};
+  background-color: #f4f5f7;
+
   width: 100%;
   border-radius: 10px;
   min-height: 300px;

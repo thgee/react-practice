@@ -13,7 +13,7 @@ import {
 } from "./styles";
 import { Board } from "../../components/Trello/Board/Board";
 import { TrashCan } from "../../components/Trello/TrashCan/TrashCan";
-import { CancelBtn, OkBtn } from "../../components/Trello/Board/styles";
+import { CancelBtn, OkBtn } from "../../components/Trello/Board/styles.ts";
 import { useForm } from "react-hook-form";
 
 interface IBoardForm {
