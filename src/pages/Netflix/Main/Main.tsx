@@ -41,38 +41,37 @@ export const Main = () => {
           <Overview>{movieList?.results[0].overview}</Overview>
         </>
       </Banner>
-      <Slider>
-        <AnimatePresence initial={false}>
-          <Row
-            key={sliderIdx}
-            variants={sliderVariant}
-            initial={"initial"}
-            animate="visible"
-            exit={"exit"}
-            transition={{ duration: 0.8, type: "tween" }}
-          >
-            {movieList?.results
-              .slice(sliderIdx * 6, (sliderIdx + 1) * 6)
-              .map((it) => (
-                <SliderItem
-                  layoutId={"" + it.id}
-                  onClick={() => toggleMovieModal(it.id)}
-                  whileHover={{
-                    scale: 1.6,
-                    y: -80,
-                    zIndex: 1,
-                    transition: { delay: 0.3 },
-                  }}
-                  animate={{ zIndex: 0, transition: { delay: 0.3 } }}
-                  key={it.id}
-                  imgSrc={getImgPath(it.backdrop_path!, "w500")}
-                >
-                  <TitleBox> {it.title}</TitleBox>
-                </SliderItem>
-              ))}
-          </Row>
-        </AnimatePresence>
-      </Slider>
+      <AnimatePresence initial={false}>
+        <Slider
+          key={sliderIdx}
+          variants={sliderVariant}
+          initial={"initial"}
+          animate="visible"
+          exit={"exit"}
+          transition={{ duration: 0.8, type: "tween" }}
+        >
+          {movieList?.results
+            .slice(sliderIdx * 6, (sliderIdx + 1) * 6)
+            .map((it) => (
+              <SliderItem
+                layoutId={"" + it.id}
+                onClick={() => toggleMovieModal(it.id)}
+                whileHover={{
+                  scale: 1.6,
+                  y: -80,
+                  zIndex: 1,
+                  transition: { delay: 0.3 },
+                }}
+                animate={{ zIndex: 0, transition: { delay: 0.3 } }}
+                key={it.id}
+                imgSrc={getImgPath(it.backdrop_path!, "w500")}
+              >
+                <TitleBox> {it.title}</TitleBox>
+              </SliderItem>
+            ))}
+        </Slider>
+        <div style={{ height: 200 }} />
+      </AnimatePresence>
       {match && <MovieModal movieId={match.params.movieId!} />}
     </MainContainer>
   );
@@ -81,16 +80,10 @@ export const Main = () => {
 export const MovieModal = ({ movieId }: { movieId: string }) => {
   const navigate = useNavigate();
   return (
-    <Outlay
-      onClick={() => {
-        navigate("/netflix");
-      }}
-    >
-      <MovieModalContainer
-        exit={{ scale: 3, color: "red" }}
-        layoutId={"" + movieId}
-      ></MovieModalContainer>
-    </Outlay>
+    <>
+      <Outlay onClick={() => navigate("/netflix")} />
+      <MovieModalContainer layoutId={"" + movieId}></MovieModalContainer>
+    </>
   );
 };
 
@@ -105,7 +98,7 @@ const MovieModalContainer = styled(motion.div)`
   width: 800px;
   height: 500px;
   position: fixed;
-  top: 100px;
+  top: 50px;
   background-color: white;
   left: 0;
   right: 0;
@@ -116,7 +109,8 @@ const MovieModalContainer = styled(motion.div)`
 ///////////////////////////////////
 const MainContainer = styled.div`
   background-color: black;
-  height: fit-content;
+  overflow: hidden;
+  position: relative;
 `;
 
 const Banner = styled.div<{ img: string }>`
@@ -140,19 +134,11 @@ const Overview = styled.div`
   color: #fff;
 `;
 
-const Slider = styled.div`
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  height: 300px;
-  top: -200px;
-`;
-const Row = styled(motion.div)`
+const Slider = styled(motion.div)`
   position: absolute;
-  overflow: visible;
-  bottom: 0;
   width: 100%;
   padding: 0px 70px;
+  bottom: 150px;
   display: flex;
   gap: 10px;
 `;

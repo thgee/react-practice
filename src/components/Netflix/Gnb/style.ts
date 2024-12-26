@@ -13,6 +13,7 @@ export const Nav = styled(motion.nav)`
   align-items: center;
   width: 100%;
   padding: 40px 50px;
+  z-index: 9999;
 `;
 
 export const Logo = styled(motion.svg)`

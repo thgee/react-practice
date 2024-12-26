@@ -15,13 +15,12 @@ export const router = createBrowserRouter(
     { path: "/", element: <App /> },
     { path: "/trello", element: <Trello /> },
     { path: "/framer", element: <Framer /> },
-
     {
       path: "/netflix",
       element: <NetflixLayout />,
       children: [
-        { path: "", element: <Main /> },
         { path: ":movieId", element: <Main /> },
+        { path: "", element: <Main /> },
         { path: "search", element: <Search /> },
         { path: "tv", element: <Tv /> },
       ],
